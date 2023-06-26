@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['prefix' => 'trucks'], function(){
+    Route::get('', [App\Http\Controllers\TruckController::class, 'index'])->name('truck.index');
+    Route::get('create/', [App\Http\Controllers\TruckController::class, 'create'])->name('truck.create');
+    Route::post('store/', [App\Http\Controllers\TruckController::class, 'store'])->name('truck.store');
+    Route::get('edit/{truck}', [App\Http\Controllers\TruckController::class, 'edit'])->name('truck.edit');
+    Route::post('update/{truck}', [App\Http\Controllers\TruckController::class, 'update'])->name('truck.update');
+    Route::post('destroy/{truck}', [App\Http\Controllers\TruckController::class, 'destroy'])->name('truck.destroy');
+    Route::get('show/{truck}', [App\Http\Controllers\TruckController::class, 'show'])->name('truck.show');
+  });
