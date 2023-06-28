@@ -1,31 +1,29 @@
 
 <div>
-<div><h4><a href="{{route('truck.create')}}">Create new Truck</a></h4></div>
+<div><h4><a href="{{route('pavadavimas.create')}}">Sukurti naują pavadavimą</a></h4></div>
+<div><h4><a href="{{route('truck.index')}}">Visi sunkvežimiai</a></h4></div>
 <table>
   <tr>
   <th>ID</th>
-  <th>Unit number</th>
-  <th>Year</th>
-  <th>Note</th>
-  <th>Status</th>
+  <th>truck_id</th>
+  <th>subUnit</th>
+  <th>start_date</th>
+  <th>end_date</th>
   <th collspan="2">Actions</th>
   </tr>
-@foreach ($trucks as $truck)
+@foreach ($pavadavimai as $pavadavimas)
   <tr>
-    <td>{{$truck->id}}</td>
-    <td>{{$truck->unit_number}}</td>
-    <td>{{$truck->year}}</td>
-    <td>{{$truck->note}}</td>
-    <td>@if ($truck->workingStatus)
-        Dirbantis
-    @else
-        Nedirbantis
-    @endif</td>
-    <td><button onclick="window.location.href='{{route('truck.show',[$truck])}}';">Details</td>
-    <td><button onclick="window.location.href='{{route('truck.edit',[$truck])}}';">Edit</td>
-    <td><form method="POST" action="{{ route('truck.destroy', [$truck]) }}">
+    <td>{{$pavadavimas->id}}</td>
+    <td>{{$pavadavimas->truck_id}}</td>
+    <td>{{$pavadavimas->subUnit}}</td>
+    <td>{{$pavadavimas->start_date}}</td>
+    <td>{{$pavadavimas->end_date}}</td>
+
+    <td><button onclick="window.location.href='{{route('pavadavimas.show',[$pavadavimas])}}';">Details</td>
+    <td><button onclick="window.location.href='{{route('pavadavimas.edit',[$pavadavimas])}}';">Edit</td>
+    <td><form method="POST" action="{{ route('pavadavimas.destroy', [$pavadavimas]) }}">
     @csrf
-    <input type="submit" value="Delete truck">
+    <input type="submit" value="Trinti pavadavimą">
 </form></td>
   </tr>
 @endforeach

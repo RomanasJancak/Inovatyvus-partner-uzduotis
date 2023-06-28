@@ -1,6 +1,6 @@
-
 <div>
 <div><h4><a href="{{route('truck.create')}}">Create new Truck</a></h4></div>
+<div><h4><a href="{{route('pavadavimas.index')}}">Visi pavadavimai</a></h4></div>
 <table>
   <tr>
   <th>ID</th>

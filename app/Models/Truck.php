@@ -18,6 +18,13 @@ class Truck extends Model
         ->pluck('subUnit')->toArray());
     }
     public function getMainTruck(){
+        $col = DB::table('pavadavimas')->
+        where('end_date','>=',date('Y-m-d'))->
+        where('subUnit','=',$this->id)->
+        get();
+        if($col.isEmpty()){
+            
+        }
         return Truck::find(DB::table('pavadavimas')->
             where('end_date','>=',date('Y-m-d'))->
             where('subUnit','=',$this->id)->
@@ -48,5 +55,10 @@ class Truck extends Model
             $status=true;
         }
         return $status;
+    }
+    static public function  getTrucksAvailableToSubstitue(){
+        return Truck::find(DB::table('trucks')
+        ->where('workingStatus','=','0')
+        ->pluck('id')->toArray());
     }
 }

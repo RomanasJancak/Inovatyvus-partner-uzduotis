@@ -21,7 +21,6 @@ class TruckController extends Controller
      */
     public function create()
     {
-        //return redirect()->route('truck.create');
         return view('truck.create');
     }
 

@@ -2,7 +2,7 @@
     //dd($truck->isAvailableForSubstitution());
     $date = new DateTime('now');
     //dd($truck->canIbesubstituedOnThisTimeFrame(date('Y-m-d'),$date->modify('+1 day')->format('Y-m-d')));
-    //dd($truck->subUnits());
+    //dd($truck);
 ?>
 <button onclick="window.location.href='{{route('truck.index')}}';">Į sąrašą</button>
 <table>
@@ -36,7 +36,7 @@
             @foreach ($truck->subUnits() as $sUnit)
                 {{$sUnit->unit_number}}<br>
             @endforeach
-        @else
+        @else            
             <td>{{$truck->getMainTruck()->unit_number}}</td>
         @endif
         </td>
