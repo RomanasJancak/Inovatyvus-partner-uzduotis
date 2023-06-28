@@ -17,6 +17,7 @@ return new class extends Migration
             $table->String('unit_number',255);
             $table->unsignedInteger('year');
             $table->String('note')->default("");
+            $table->boolean('workingStatus')->default(true);
         });
     }
 

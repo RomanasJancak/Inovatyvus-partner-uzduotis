@@ -30,10 +30,12 @@ class TruckController extends Controller
      */
     public function store(StoreTruckRequest $request)
     {
-        $truck  =   new Truck();
-        $truck->unit_number =   $request->unit_number;
-        $truck->year        =   $request->year;
-        $truck->note        =   $request->note;
+        $truck                  =   new Truck();
+        $truck->unit_number     =   $request->unit_number;
+        $truck->year            =   $request->year;
+        $truck->note            =   $request->note;
+        $truck->workingStatus   =   0;
+        if($request->workingStatus === true){$truck->workingStatus = 1;}
         if($request->note === null){
             $truck->note = "";
         }
@@ -63,9 +65,11 @@ class TruckController extends Controller
     public function update(UpdateTruckRequest $request, Truck $truck)
     {
         //dd($truck);
-        $truck->unit_number =   $request->unit_number;
-        $truck->year        =   $request->year;
-        $truck->note       =   $request->note;
+        $truck->unit_number     =   $request->unit_number;
+        $truck->year            =   $request->year;
+        $truck->note            =   $request->note;
+        $truck->workingStatus   =   0;
+        if($request->workingStatus === true){$truck->workingStatus = 1;}
         if($request->note === null){
             $truck->note = "";
         }

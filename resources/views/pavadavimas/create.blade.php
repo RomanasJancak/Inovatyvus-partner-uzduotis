@@ -1,0 +1,1 @@
+<button onclick="window.location.href='{{route('truck.index')}}';">Į sąrašą</button>
