@@ -23,7 +23,9 @@ class PavadavimasController extends Controller
      */
     public function create($mainTruck,$startDate = null,$endDate = null)
     {
-        
+        if($request != null){
+            dd($request);
+        }
         $mainTruck  =   Truck::find($mainTruck);
         
         if($mainTruck->pavadavimai->count() === 0){
