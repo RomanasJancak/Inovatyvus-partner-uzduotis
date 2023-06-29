@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\DB;
 class Truck extends Model
 {
     use HasFactory;
+    public function pavadavimai(){
+        return $this->hasMany(Pavadavimas::class,)->where('end_date','>=',date('Y-m-d'));
+    }
     public function subUnits(){
-        //dd(date('Y-m-d'));
         return Truck::find(DB::table('pavadavimas')
         ->where('end_date','>=',date('Y-m-d'))
         ->where('truck_id','=',$this->id)
@@ -22,13 +24,12 @@ class Truck extends Model
         where('end_date','>=',date('Y-m-d'))->
         where('subUnit','=',$this->id)->
         get();
-        if($col.isEmpty()){
-            
+        //dd($col->count());
+        if($col->count() > 0){
+            return Truck::find($col[0]->truck_id);
+        }else{
+            return null;
         }
-        return Truck::find(DB::table('pavadavimas')->
-            where('end_date','>=',date('Y-m-d'))->
-            where('subUnit','=',$this->id)->
-            get()[0]->truck_id);
     }
     public function isAvailableForSubstitution(){
         $status = false;
@@ -58,7 +59,7 @@ class Truck extends Model
     }
     static public function  getTrucksAvailableToSubstitue(){
         return Truck::find(DB::table('trucks')
-        ->where('workingStatus','=','0')
+        ->where('workingStatus','=','1')
         ->pluck('id')->toArray());
     }
 }

@@ -1,6 +1,10 @@
+
 <div>
 <div><h4><a href="{{route('truck.create')}}">Create new Truck</a></h4></div>
 <div><h4><a href="{{route('pavadavimas.index')}}">Visi pavadavimai</a></h4></div>
+<?php
+?>
+
 <table>
   <tr>
   <th>ID</th>
@@ -16,10 +20,16 @@
     <td>{{$truck->unit_number}}</td>
     <td>{{$truck->year}}</td>
     <td>{{$truck->note}}</td>
-    <td>@if ($truck->workingStatus)
+    <td>@if ($truck->workingStatus)                        
         Dirbantis
+
     @else
         Nedirbantis
+        @if($truck->subUnits()->count() > 0)
+        ,pavaduoja
+        @else
+        ,NEpavaduoja
+        @endif
     @endif</td>
     <td><button onclick="window.location.href='{{route('truck.show',[$truck])}}';">Details</td>
     <td><button onclick="window.location.href='{{route('truck.edit',[$truck])}}';">Edit</td>

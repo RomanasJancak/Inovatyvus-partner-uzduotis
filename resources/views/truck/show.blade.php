@@ -1,10 +1,27 @@
 <?php
     //dd($truck->isAvailableForSubstitution());
-    $date = new DateTime('now');
+    //$date = new DateTime('now');
     //dd($truck->canIbesubstituedOnThisTimeFrame(date('Y-m-d'),$date->modify('+1 day')->format('Y-m-d')));
-    //dd($truck);
+    //dd($truck->pavadavimai);
 ?>
-<button onclick="window.location.href='{{route('truck.index')}}';">Į sąrašą</button>
+<button onclick="window.location.href='{{route('truck.index')}}';">Sunkvežimių sąrašas</button>
+<table>
+    <tr>
+        <th>
+            <button onclick="window.location.href='{{route('truck.edit',[$truck])}}';">Redaguoti</button>
+        </th>
+        <th>
+            <form method="POST" action="{{ route('truck.destroy', [$truck]) }}">
+                @csrf
+                <input type="submit" value="Trinti">
+            </form>
+        </th>
+        <th>
+        <button onclick="window.location.href='{{route('pavadavimas.create',[$truck])}}';">Prideti pavadavimą</button>
+        </th> 
+    </tr>
+</table>
+
 <table>
     <tr>
         <th>Id</th>
@@ -15,9 +32,10 @@
         @if ($truck->subUnits()->count())
         <th>SubUnits</th>
         @else
-        <th>MainTruck</th>    
+        <th>MainTruck</th>
+           
         @endif
-        
+        <th>Pavadavimo laikotarpis</th> 
         <th>Action</th>
     </tr>
     <tr>
@@ -33,21 +51,28 @@
         </td>
         <td>
         @if ($truck->subUnits()->count())
-            @foreach ($truck->subUnits() as $sUnit)
-                {{$sUnit->unit_number}}<br>
+            @foreach ($truck->pavadavimai as $pavadavimas)
+                {{$pavadavimas->getSubTruck()->unit_number}}<br>
             @endforeach
-        @else            
+        @elseif($truck->getMainTruck() != null)            
             <td>{{$truck->getMainTruck()->unit_number}}</td>
         @endif
         </td>
         <td>
-            <button onclick="window.location.href='{{route('truck.edit',[$truck])}}';">Edit</button><br>
-            <form method="POST" action="{{ route('truck.destroy', [$truck]) }}">
-                @csrf
-                <input type="submit" value="Delete truck">
-            </form> 
-            @if (($truck->workingStatus)&&(true))
+            @foreach ($truck->pavadavimai as $pavadavimas)
+                [ {{$pavadavimas->start_date}} , {{$pavadavimas->end_date}} ]<br>
+            @endforeach
+        </td>
+        <td>
+            @foreach ($truck->pavadavimai as $pavadavimas)
+                <form method="POST" action="{{ route('pavadavimas.destroy', [$pavadavimas]) }}">
+                    @csrf
+                    <input type="submit" value="Trinti">
+                </form>
+            @endforeach
+            @if (!((!$truck->workingStatus)&&($truck->pavadavimai->isEmpTy())))
             @else
+
             @endif
         </td>
     </tr>

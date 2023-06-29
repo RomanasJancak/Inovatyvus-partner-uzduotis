@@ -27,7 +27,7 @@ Route::group(['prefix' => 'trucks'], function(){
   });
   Route::group(['prefix' => 'pavadavimai'], function(){
     Route::get('', [App\Http\Controllers\PavadavimasController::class, 'index'])->name('pavadavimas.index');
-    Route::get('create/', [App\Http\Controllers\PavadavimasController::class, 'create'])->name('pavadavimas.create');
+    Route::get('create/{truck}', [App\Http\Controllers\PavadavimasController::class, 'create'])->name('pavadavimas.create');
     Route::post('store/', [App\Http\Controllers\PavadavimasController::class, 'store'])->name('pavadavimas.store');
     Route::get('edit/{pavadavimas}', [App\Http\Controllers\PavadavimasController::class, 'edit'])->name('pavadavimas.edit');
     Route::post('update/{pavadavimas}', [App\Http\Controllers\PavadavimasController::class, 'update'])->name('pavadavimas.update');

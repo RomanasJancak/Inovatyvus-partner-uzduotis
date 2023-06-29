@@ -12,4 +12,7 @@ class Pavadavimas extends Model
     public function getMainTruck($truck){
         return $this->hasOne(Pavadavimas::class)->where('subUnit',$truck->id);
     }
+    public function getSubTruck(){
+        return Truck::find($this->subUnit);
+    }
 }

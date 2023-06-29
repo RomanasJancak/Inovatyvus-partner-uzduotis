@@ -20,10 +20,11 @@ class PavadavimasController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($mainTruck,$startDate = null,$endDate = null)
     {
-        $mainTrucks=Truck::getTrucksAvailableToSubstitue();
-        return view('pavadavimas.create',['mainTrucks'=>$mainTrucks]);
+        $mainTruck  =   Truck::find($mainTruck);
+        //$mainTrucks=Truck::getTrucksAvailableToSubstitue();
+        return view('pavadavimas.create',['mainTruck'=>$mainTruck]);
     }
 
     /**
@@ -69,6 +70,7 @@ class PavadavimasController extends Controller
      */
     public function destroy(Pavadavimas $pavadavimas)
     {
-        //
+        $pavadavimas->delete();
+        return redirect()->route('pavadavimas.index',['pavadavimai' => Pavadavimas::all()]);
     }
 }

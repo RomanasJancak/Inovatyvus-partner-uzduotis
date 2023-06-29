@@ -68,7 +68,8 @@ class TruckController extends Controller
         $truck->year            =   $request->year;
         $truck->note            =   $request->note;
         $truck->workingStatus   =   0;
-        if($request->workingStatus === true){$truck->workingStatus = 1;}
+        
+        if($request->workingStatus === 'true'){$truck->workingStatus = 1;}
         if($request->note === null){
             $truck->note = "";
         }
