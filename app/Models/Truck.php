@@ -13,6 +13,15 @@ class Truck extends Model
     public function pavadavimai(){
         return $this->hasMany(Pavadavimas::class,)->where('end_date','>=',date('Y-m-d'));
     }
+    public function findLatestAvailableStartDate(){
+        $latestDate = date('0000-00-00 00:00:00:0000');
+        foreach($this->pavadavimai as $pavadavimas ){
+            if($pavadavimas->end_date > $latestDate){
+                $latestDate = $pavadavimas->end_date;
+            }
+        }
+        return $latestDate;
+    }
     public function subUnits(){
         return Truck::find(DB::table('pavadavimas')
         ->where('end_date','>=',date('Y-m-d'))

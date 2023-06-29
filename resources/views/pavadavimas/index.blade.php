@@ -1,6 +1,5 @@
 
 <div>
-<div><h4><a href="{{route('pavadavimas.create')}}">Sukurti naują pavadavimą</a></h4></div>
 <div><h4><a href="{{route('truck.index')}}">Visi sunkvežimiai</a></h4></div>
 <table>
   <tr>

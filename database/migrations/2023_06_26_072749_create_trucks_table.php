@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('year');
             $table->String('note')->default("");
             $table->boolean('workingStatus')->default(true);
+            $table->dateTime('break_date')->default(date('0000-01-01'));
         });
     }
 

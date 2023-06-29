@@ -6,6 +6,7 @@ use App\Models\Pavadavimas;
 use App\Models\Truck;
 use App\Http\Requests\StorePavadavimasRequest;
 use App\Http\Requests\UpdatePavadavimasRequest;
+use Carbon\Carbon; 
 
 class PavadavimasController extends Controller
 {
@@ -22,9 +23,22 @@ class PavadavimasController extends Controller
      */
     public function create($mainTruck,$startDate = null,$endDate = null)
     {
+        
         $mainTruck  =   Truck::find($mainTruck);
+        
+        if($mainTruck->pavadavimai->count() === 0){
+            $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $mainTruck->break_date);
+        }else{
+            $startDate  =   Carbon::createFromFormat('Y-m-d H:i:s', $mainTruck->findLatestAvailableStartDate());
+
+            $startDate->addSecond();
+        }
         //$mainTrucks=Truck::getTrucksAvailableToSubstitue();
-        return view('pavadavimas.create',['mainTruck'=>$mainTruck]);
+        return view('pavadavimas.create',[
+            'mainTruck' =>  $mainTruck,
+            'startDate' =>  $startDate,
+            'endDate'   =>  $endDate
+        ]);
     }
 
     /**

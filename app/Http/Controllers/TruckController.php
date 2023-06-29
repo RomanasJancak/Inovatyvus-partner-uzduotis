@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Truck;
 use App\Http\Requests\StoreTruckRequest;
 use App\Http\Requests\UpdateTruckRequest;
-
+use Carbon\Carbon;
 class TruckController extends Controller
 {
     /**
@@ -34,7 +34,13 @@ class TruckController extends Controller
         $truck->year            =   $request->year;
         $truck->note            =   $request->note;
         $truck->workingStatus   =   0;
-        if($request->workingStatus === true){$truck->workingStatus = 1;}
+        if($request->workingStatus === 'true'){
+                $truck->workingStatus = 1;
+            }
+            else{
+                $truck->workingStatus   =   0; 
+                $truck->break_date = Carbon::now()->toDateTimeString();   
+            }
         if($request->note === null){
             $truck->note = "";
         }
@@ -67,9 +73,14 @@ class TruckController extends Controller
         $truck->unit_number     =   $request->unit_number;
         $truck->year            =   $request->year;
         $truck->note            =   $request->note;
-        $truck->workingStatus   =   0;
         
-        if($request->workingStatus === 'true'){$truck->workingStatus = 1;}
+        if($request->workingStatus === 'true'){
+            $truck->workingStatus = 1;
+            $truck->break_date = date('0000-01-01 00:00:00');
+        }else{
+            $truck->workingStatus   =   0;
+            $truck->break_date = Carbon::now()->toDateTimeString();
+        }
         if($request->note === null){
             $truck->note = "";
         }
